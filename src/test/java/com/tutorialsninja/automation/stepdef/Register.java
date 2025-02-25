@@ -24,7 +24,7 @@ public class Register {
             public void iCheckInThePrivacyPolicy() {
            }
 
-            @And("^Iclick on continue button$")
+            @And("^I click on continue button$")
             public void iclickOnContinueButton() {
             }
 
