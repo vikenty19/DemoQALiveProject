@@ -16,7 +16,7 @@ public class Register {
             }
 
 
-              @When("^I provide all the below valid details$")
+              @When("^I provide all the below valid details :$")
              public void iProvideAllTheBelowValidDetails(DataTable dataTable) {
                }
 

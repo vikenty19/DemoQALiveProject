@@ -17,10 +17,11 @@ public class Hooks {
 	
 	@Before
 	public void setUp(Scenario scenario){
+
 	PropertyConfigurator.configure(PathHelper.getResourcePath("/src/main/resources/ConfigurationFile/log4j.properties"));
 	log.info("Scenario Started: "+scenario.getName());
 	Base.reader=new PropertyFileReader();
-	Browser.startBrowser();
+		Browser.startBrowser();
 	Browser.maximize();
 	}
 	@After
