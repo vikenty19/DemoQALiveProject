@@ -15,7 +15,7 @@ import cucumber.api.java.Before;
 public class Hooks {
 	private static Logger log = Logger.getLogger(Hooks.class);
 	
-	@Before
+//	@Before
 	public void setUp(Scenario scenario){
 
 	PropertyConfigurator.configure(PathHelper.getResourcePath("/src/main/resources/ConfigurationFile/log4j.properties"));
@@ -24,7 +24,7 @@ public class Hooks {
 		Browser.startBrowser();
 	Browser.maximize();
 	}
-	@After
+//	@After
 	public void closeBrowser(Scenario scenario){
 	if(scenario.isFailed()){
 	scenario.embed(Browser.takeScreenshot(), "image/png");

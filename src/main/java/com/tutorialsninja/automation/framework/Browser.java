@@ -15,47 +15,52 @@ import com.tutorialsninja.automation.base.Base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.time.Duration;
+import java.util.Properties;
+
 public  class Browser {
 	public static Logger log = Logger.getLogger(Browser.class);
-
+     static Properties prop;
+	 static WebDriver driver;
 	public static WebDriver startBrowser() {
 		String browser = Base.reader.getBrowser().toLowerCase();
 		log.info("Selected Browser is: "+browser);
-		switch (browser) {
+		prop = new Properties();
+		File propFile=new File(System.getProperty("user.dir")+"src/main/resources/ConfigurationFile/config.properties");
 
-		case "chrome":
-			WebDriverManager.chromedriver().useBetaVersions().setup();
-			WebDriverManager.chromedriver().setup();
-			Base.driver = new ChromeDriver();
-			log.info("Chrome Browser is Started" + Base.driver.hashCode());
-			return Base.driver;
-
-		case "ie":
-			WebDriverManager.iedriver().setup();
-			Base.driver = new InternetExplorerDriver();
-			log.info("Internet Explorer Browser is Started" + Base.driver.hashCode());
-			return Base.driver;
-
-
-
-			case "htmlunit":
-			Base.driver = new HtmlUnitDriver();
-			log.info("HtmlUnit Browser is Started" + Base.driver.hashCode());
-			return Base.driver;
-		    case "edge":
-				WebDriverManager.edgedriver().setup();
-				Base.driver = new EdgeDriver();
-				log.info("Edge Browser is Started" + Base.driver.hashCode());
-				return Base.driver;
-
-			default:
-			WebDriverManager.firefoxdriver().setup();
-			Base.driver = new FirefoxDriver();
-			log.info("Firefox Browser is Started" + Base.driver.hashCode());
-			return Base.driver;
+		try {
+			FileInputStream fis = new FileInputStream(propFile);
+			prop.load(fis);
+			System.out.println(prop);
+		} catch (Throwable e) {
+			e.printStackTrace();
 		}
 
+		switch (browser){
+			case "firefox":
+				WebDriverManager.firefoxdriver().setup();
+				driver =new FirefoxDriver();
+				break;
+			case "edge":
+				WebDriverManager.edgedriver().setup();
+				driver = new EdgeDriver();
+				break;
+
+			default:
+				WebDriverManager.chromedriver().setup();
+				driver = new ChromeDriver();
+		}
+
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		// take it from data.properties
+		driver.get(prop.getProperty("url"));
+		return driver;
+
 	}
+
 
 	public static void maximize() {
 		Base.driver.manage().window().maximize();

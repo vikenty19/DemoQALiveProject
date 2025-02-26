@@ -20,7 +20,7 @@ public class Base {
 	
 	public static WebDriver driver;
 	public static ConfigurationReader reader;
-	@Before
+	//@Before
 	public void setUp(Scenario scenario){
 
 		PropertyConfigurator.configure(PathHelper.getResourcePath("/src/main/resources/ConfigurationFile/log4j.properties"));
@@ -29,7 +29,7 @@ public class Base {
 		Browser.startBrowser();
 		Browser.maximize();
 	}
-	@After
+//	@After
 	public void closeBrowser(Scenario scenario){
 		if(scenario.isFailed()){
 			scenario.embed(Browser.takeScreenshot(), "image/png");
